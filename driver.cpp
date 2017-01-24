@@ -33,5 +33,13 @@ int main(int argc, char **argv){
 	}
 
 	// Now let's try out the Big Five!
-	
+	Student d(c);
+	std::cout << d.getNumber() << ": " << d.getName() << std::endl;
+	num_grades = d.getNumGrades();
+	grades = c.getGrades();
+	for(int i=0; i<num_grades; i++){
+		std::cout << grades[i] << "\t";
+	}
+	std::cout << std::endl;
+		
 }

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 #include "Student.h"
@@ -6,6 +7,8 @@
 // and an int.
 
 Student::Student( std::string name, int number ){
+	std::cout << std::endl << "\"Normal Constructor\" called." << std::endl;
+	std::cout << "==============================" << std::endl;
 	this->name = name;
 	student_number = number;
 	num_grades = 10;
@@ -32,6 +35,8 @@ Student::Student( std::string name, int number ){
 // create a new object with the same values
 // as another object.
 Student::Student( const Student & rhs ){
+	std::cout << std::endl << "\"Copy Constructor\" called." << std::endl;
+	std::cout << "==============================" << std::endl;
 	name = rhs.name;
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;
@@ -56,6 +61,8 @@ Student::Student( const Student & rhs ){
 
 // Move Constructor
 Student::Student( Student && rhs){
+	std::cout << std::endl << "\"Move Constructor\" called." << std::endl;
+	std::cout << "==============================" << std::endl;
 	name = rhs.name;	// Simply copy primitives...
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;
@@ -73,6 +80,8 @@ Student::Student( Student && rhs){
 // Copy assignment.  Basically the same code as for
 // the copy constructor.  But doesn't have to be...
 Student & Student::operator= ( const Student & rhs){
+	std::cout << std::endl << "\"Copy Operator=\" called." << std::endl;
+	std::cout << "==============================" << std::endl;
 	name = rhs.name;
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;
@@ -89,6 +98,8 @@ Student & Student::operator= ( const Student & rhs){
 // Move assignment.  Same as move constructor (but
 // once again doesn't have to be).
 Student & Student::operator= ( Student && rhs){
+	std::cout << std::endl << "\"Move Operator=\" called." << std::endl;
+	std::cout << "==============================" << std::endl;
 	name = rhs.name;	// Simply copy primitives...
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;
@@ -159,7 +170,6 @@ void Student::addGrade ( const double grade ){
 			tmp[i] = grades[i];
 		}
 		grades = tmp;
-		delete tmp;
 	}
 	// Now add the new value in the first
 	// available spot.
