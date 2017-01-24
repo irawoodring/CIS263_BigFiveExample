@@ -104,7 +104,8 @@ Student & Student::operator= ( Student && rhs){
 	return *this;
 }
 
-// Destructor
+// Destructor.  Since we dynamically allocated memory we
+// must release manually it when our object is destroyed.
 Student::~Student(){
 	delete[] grades;
 }
@@ -113,32 +114,55 @@ Student::~Student(){
  * Accessors and Mutators
  */
 
+// Set this object's internal state to the parameter passed in.
 void Student::setName( const std::string & name ){
 	this->name = name;
 }
 
+// Return this object's name.
 std::string Student::getName() const{ 
 	return name;
 }
+
+// Set this objects student_number to the value of "number".
 void Student::setNumber( const int number ){
 	student_number = number;
 }
+
+// Return this object's student number.
 int Student::getNumber() const{
 	return student_number;
 }
 
+// Add a new grade entry for this student.
+// If there is not enough space in our array
+// we will allocate more space, and copy the
+// old values in.  Not written for efficiency. 
 void Student::addGrade ( const double grade ){
+	// Since we initialized our values to -1
+	// we can check if the array is currently
+	// full by checking for -1 in the last
+	// array spot.
 	if(grades[num_grades - 1] != -1){
+		// Simply add ten more.
 		num_grades += 10;
+		// Allocate new space.  Use a temporary
+		// array so we don't lose our current
+		// values.
 		float * tmp = new float[num_grades];
+		// Set the elements to -1.
 		for(int i=0; i<num_grades; i++){
 			tmp[i] = -1;
 		}
+		// Copy the old values in.
 		for(int i=0; i<num_grades - 10; i++){
 			tmp[i] = grades[i];
 		}
 		grades = tmp;
+		delete tmp;
 	}
+	// Now add the new value in the first
+	// available spot.
 	for(int i=0; i<num_grades; i++){
 		if(grades[i] == -1){
 			grades[i] = grade;
@@ -148,10 +172,12 @@ void Student::addGrade ( const double grade ){
 	
 }
 
+// Return a pointer the array of grades.
 float * Student::getGrades () const{
 	return grades;
 }
 
+// Return the number of grades we are currently housing.
 int Student::getNumGrades() const {
 	return num_grades;
 }
