@@ -60,8 +60,10 @@ int main(int argc, char **argv){
 	std::cout << d << std::endl;
 	
 	std::cout << "Move constructor will be called whenever we set up a Student" << std::endl;
-	std::cout << "with a temporary object as the parameter to a new Student's" << std::endl;
+	std::cout << "with a temporary object reference as the parameter to a new Student's" << std::endl;
 	std::cout << "constructor." << std::endl;
+	// std::move is used to "convert" an object to an
+	// rvalue reference.  So yes... a bit contrived example.
 	Student e( std::move(c.getStudent()));
 	std::cout << e << std::endl;
 
