@@ -81,4 +81,26 @@ int main(int argc, char **argv){
                std::cout << grades[i] << "\t";
         }
         std::cout << std::endl;
+
+	// Now the copy operator=
+	Student g("Lost Student", 39192);
+	g = e;
+	std::cout << g << std::endl;
+        num_grades = g.getNumGrades();
+        grades = g.getGrades();
+        for(int i=0; i<num_grades; i++){
+               std::cout << grades[i] << "\t";
+        }
+        std::cout << std::endl;
+
+	Student h("Move lost student", 29395);
+	h = g.getStudent();
+	std::cout << h << std::endl;
+        num_grades = h.getNumGrades();
+        grades = h.getGrades();
+        for(int i=0; i<num_grades; i++){
+               std::cout << grades[i] << "\t";
+        }
+        std::cout << std::endl;
+	
 }
