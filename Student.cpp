@@ -185,6 +185,8 @@ int Student::getNumGrades() const {
 	return num_grades;
 }
 
+// Return an rvalue Student.
+// Used to illustrate concepts.
 Student Student::getStudent() {
 	Student s("RValue Student", 81818);
 	return s;
