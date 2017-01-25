@@ -63,9 +63,10 @@ Student::Student( const Student & rhs ){
 Student::Student( Student && rhs){
 	std::cout << std::endl << "\"Move Constructor\" called." << std::endl;
 	std::cout << "==============================" << std::endl;
-	name = rhs.name;	// Simply copy primitives...
+	name = std::move(rhs.name);	// Simply copy primitives...
 	student_number = rhs.student_number;
-	num_grades = rhs.num_grades;
+	num_grades = std::move(rhs.num_grades);
+	std::cout << "Number grades " << num_grades << std::endl;
 	
 	// Now, we are going to steal rhs's pointer!
 	// She isn't going to need it anymore anyway,
@@ -73,8 +74,8 @@ Student::Student( Student && rhs){
 	// the rhs's pointer to nullptr to make sure
 	// time isn't wasted in trying to delete memory
 	// multiple times.
-	grades = rhs.grades;	// Copy the other pointer
-	rhs.grades = nullptr;	// Set the other to nullptr
+	grades = rhs.grades;
+	rhs.grades = nullptr;
 }
 
 // Copy assignment.  Basically the same code as for
@@ -85,7 +86,7 @@ Student & Student::operator= ( const Student & rhs){
 	name = rhs.name;
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;
-
+	std::cout << num_grades << std::endl;
 	// First, allocate new memory for this object.
 	grades = new float[num_grades];
 	// Copy the other object's grades into this object.
@@ -190,5 +191,10 @@ float * Student::getGrades () const{
 // Return the number of grades we are currently housing.
 int Student::getNumGrades() const {
 	return num_grades;
+}
+
+Student Student::getStudent() {
+	Student s("RValue Student", 81818);
+	return s;
 }
 

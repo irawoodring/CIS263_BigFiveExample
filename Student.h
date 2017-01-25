@@ -39,6 +39,7 @@ class Student {
 		void addGrade ( const double grade );
 		float * getGrades () const;
 		int getNumGrades () const;
+		Student getStudent();
 
 	private:
 		// The student's name
