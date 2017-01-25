@@ -7,8 +7,6 @@
 // and an int.
 
 Student::Student( std::string name, int number ){
-	std::cout << std::endl << "\"Normal Constructor\" called." << std::endl;
-	std::cout << "==============================" << std::endl;
 	this->name = name;
 	student_number = number;
 	num_grades = 10;
@@ -35,8 +33,7 @@ Student::Student( std::string name, int number ){
 // create a new object with the same values
 // as another object.
 Student::Student( const Student & rhs ){
-	std::cout << std::endl << "\"Copy Constructor\" called." << std::endl;
-	std::cout << "==============================" << std::endl;
+	std::cout << "***** COPY CONSTRUCTOR CALLED *****" << std::endl;
 	name = rhs.name;
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;
@@ -61,12 +58,10 @@ Student::Student( const Student & rhs ){
 
 // Move Constructor
 Student::Student( Student && rhs){
-	std::cout << std::endl << "\"Move Constructor\" called." << std::endl;
-	std::cout << "==============================" << std::endl;
+	std::cout << "***** MOVE CONSTRUCTOR CALLED *****" << std::endl;
 	name = std::move(rhs.name);	// Simply copy primitives...
 	student_number = rhs.student_number;
 	num_grades = std::move(rhs.num_grades);
-	std::cout << "Number grades " << num_grades << std::endl;
 	
 	// Now, we are going to steal rhs's pointer!
 	// She isn't going to need it anymore anyway,
@@ -81,12 +76,10 @@ Student::Student( Student && rhs){
 // Copy assignment.  Basically the same code as for
 // the copy constructor.  But doesn't have to be...
 Student & Student::operator= ( const Student & rhs){
-	std::cout << std::endl << "\"Copy Operator=\" called." << std::endl;
-	std::cout << "==============================" << std::endl;
+	std::cout << "***** COPY OPERATOR= CALLED *****" << std::endl;
 	name = rhs.name;
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;
-	std::cout << num_grades << std::endl;
 	// First, allocate new memory for this object.
 	grades = new float[num_grades];
 	// Copy the other object's grades into this object.
@@ -99,8 +92,7 @@ Student & Student::operator= ( const Student & rhs){
 // Move assignment.  Same as move constructor (but
 // once again doesn't have to be).
 Student & Student::operator= ( Student && rhs){
-	std::cout << std::endl << "\"Move Operator=\" called." << std::endl;
-	std::cout << "==============================" << std::endl;
+	std::cout << "***** MOVE OPERATOR= CALLED *****" << std::endl;
 	name = rhs.name;	// Simply copy primitives...
 	student_number = rhs.student_number;
 	num_grades = rhs.num_grades;

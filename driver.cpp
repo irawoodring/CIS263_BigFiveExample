@@ -2,7 +2,19 @@
 #include "Student.h"
 
 std::ostream & operator<<(std::ostream & os, const Student & s){
+	os << "+++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
 	os << s.getNumber() << " : " << s.getName() << " has " << s.getNumGrades() << " grades." << std::endl;
+	os << "*====================Grades=====================*" << std::endl;
+	float * grades = s.getGrades();
+	int c = 0;
+	for(int i=0; i<s.getNumGrades(); i++){
+		os << grades[i] << "\t";
+		c++;
+		if(c % 5 == 0)
+			os << std::endl;
+	}
+	os << std::endl;
+	os << "+++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
 	return os;
 }
 
@@ -10,20 +22,10 @@ int main(int argc, char **argv){
 
 	// Create a new Student with the
 	// "Normal" Constructor
+	std::cout << "Create a new student using the \"Normal\" constructor." << std::endl;
 	Student c("Joe Schmoe", 12345);
 	// Output the Student info
-	
 	std::cout << c << std::endl;
-
-	// Print each of the grades separated by a tab
-	// Should all be '-1' at this point, meaning no
-	// entry.
-	int num_grades = c.getNumGrades();
-	float * grades = c.getGrades();
-	for(int i=0; i<num_grades; i++){
-		std::cout << grades[i] << "\t";
-	}
-	std::cout << std::endl;
 
 	// Add grades to show how memory allocation
 	// changes.  After we add more than 10
@@ -43,64 +45,37 @@ int main(int argc, char **argv){
 	c.addGrade(91);
 	c.addGrade(77);
 
+	std::cout << "Now we will add grades to show the memory changes dynamically." << std::endl;
 	std::cout << c << std::endl;
-	num_grades = c.getNumGrades();
-	grades = c.getGrades();
-	for(int i=0; i<num_grades; i++){
-		std::cout << grades[i] << "\t";
-	}
 
 	// Now let's try out the Big Five!
 	// First up: Copy Constructor.
+	
+	std::cout << "Now we will create a new student by the copy constructor." << std::endl;
+	std::cout << "We do this by declaring a new Student with the first Student's" << std::endl;
+	std::cout << "name in the constructor.  For instance, if we have Student c," << std::endl;
+	std::cout << "we can create Student d with the line Student d(c)." << std::endl;
 	Student d(c);
-	std::cout << d << std::endl;
 	d.addGrade(109);
-	num_grades = d.getNumGrades();
-	grades = d.getGrades();
-	for(int i=0; i<num_grades; i++){
-		std::cout << grades[i] << "\t";
-	}
-	std::cout << std::endl;
-		
-	// Now for the copy operator=
-	Student e = c;
+	std::cout << d << std::endl;
+	
+	std::cout << "Move constructor will be called whenever we set up a Student" << std::endl;
+	std::cout << "with a temporary object as the parameter to a new Student's" << std::endl;
+	std::cout << "constructor." << std::endl;
+	Student e( std::move(c.getStudent()));
 	std::cout << e << std::endl;
-        num_grades = e.getNumGrades();
-        grades = e.getGrades();
-        for(int i=0; i<num_grades; i++){
-                std::cout << grades[i] << "\t";
-        }
-        std::cout << std::endl;
-	
-	// Now the move constructor
-	Student f = c.getStudent();
-	std::cout << f << std::endl;
-        num_grades = f.getNumGrades();
-        grades = f.getGrades();
-        for(int i=0; i<num_grades; i++){
-               std::cout << grades[i] << "\t";
-        }
-        std::cout << std::endl;
 
-	// Now the copy operator=
-	Student g("Lost Student", 39192);
-	g = e;
-	std::cout << g << std::endl;
-        num_grades = g.getNumGrades();
-        grades = g.getGrades();
-        for(int i=0; i<num_grades; i++){
-               std::cout << grades[i] << "\t";
-        }
-        std::cout << std::endl;
+	std::cout << "Copy assignment is called whenever we use the '='" << std::endl;
+	std::cout << "operator to set an existing object equal to another object." << std::endl;
+	std::cout << "If we had Student a and Student b we could say a = b to" << std::endl;
+	std::cout << "invoke it." << std::endl;
+	c = e;
+	std::cout << c << std::endl;
 
-	Student h("Move lost student", 29395);
-	h = g.getStudent();
-	std::cout << h << std::endl;
-        num_grades = h.getNumGrades();
-        grades = h.getGrades();
-        for(int i=0; i<num_grades; i++){
-               std::cout << grades[i] << "\t";
-        }
-        std::cout << std::endl;
-	
+	std::cout << "Similarly, if we want to set an already existing object" << std::endl;
+	std::cout << "equal to an rvalue we would use the move operator.  It" << std::endl;
+	std::cout << "would be invoked automatically when we say a = b if b were" << std::endl;
+	std::cout << "an rvalue." << std::endl;
+	c = d.getStudent();
+	std::cout << c << std::endl;
 }
